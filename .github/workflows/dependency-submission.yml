@@ -1,7 +1,7 @@
 name: Dependency Submission
 
 on:
-  workflow-dispatch:
+  workflow_dispatch:
 
 permissions:
   contents: write
