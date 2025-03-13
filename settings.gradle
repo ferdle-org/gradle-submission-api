@@ -4,14 +4,6 @@ pluginManagement {
         gradlePluginPortal()
     }
     plugins {
-        id 'io.micronaut.application' version '3.0.0'
-    }
-}
-
-rootProject.name = 'my-micronaut-app'
-
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
+        id 'io.micronaut.application' version '4.0.0' // Use the latest version
     }
 }
