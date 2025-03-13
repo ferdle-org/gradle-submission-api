@@ -2,6 +2,10 @@ plugins {
     id 'io.micronaut.application'
 }
 
+micronaut {
+    version '4.0.0' // Specify the Micronaut version here
+}
+
 repositories {
     mavenCentral()
 }
