@@ -6,16 +6,6 @@
 version: 2
 updates:
   - package-ecosystem: gradle
-    target-branch: main # see https://github.com/dependabot/dependabot-core/issues/1778#issuecomment-1988140219
-    directory: "/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: gradle
     directory: "/"
     schedule:
       interval: weekly
-  - package-ecosystem: gradle
-    directory: "/"
-    target-branch: "*"
-    schedule:
-      interval: monthly
