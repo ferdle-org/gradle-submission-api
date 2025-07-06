@@ -33,3 +33,4 @@ dependencies {
 application {
     mainClass = 'index.js'
 }
+
