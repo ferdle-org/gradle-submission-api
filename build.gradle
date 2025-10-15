@@ -71,7 +71,7 @@ dependencyManagement {
         dependency('io.projectreactor.netty:reactor-netty-http:1.2.8')
         dependency('org.springframework.boot:spring-boot-autoconfigure:3.4.5')
         dependency('org.springframework.boot:spring-boot-starter:3.4.5')
-        dependency('io.netty:netty-codec-http2:4.1.108.Final')
+        dependency('io.netty:netty-codec-http2:4.1.88.Final')
         dependency('com.fasterxml.jackson.core:jackson-databind:2.18.0')
         dependency('net.minidev:json-smart:2.5.2')
         dependency('org.yaml:snakeyaml:2.3')
