@@ -36,4 +36,3 @@ application {
     mainClass = 'index.js'
 }
     localDebug = "transport=dt_socket,server=y,suspend=n,address=5005"
-}
