@@ -38,4 +38,4 @@ jobs:
       uses: actions/attest-sbom@v3.0.0
       with:
         subject-path: 'dist/my-app'
-        sbom-path: 'dist/my-app/my-bin.sbom.spdx.json'
+        sbom-path: 'dist/my-app/dependency_snapshot_36694604.txt'
