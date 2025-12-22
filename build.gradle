@@ -21,15 +21,18 @@ dependencies {
     implementation 'io.micronaut.logging:micronaut-logging'
 
     // Add logback-classic, which will pull in logback-core transitively
-    implementation 'ch.qos.logback:logback-classic:1.5.6'
+    implementation 'ch.qos.logback:logback-classic:1.5.20'
 
     // Other dependencies (if any)
     implementation 'axios:axios:0.21.1'
     implementation 'lodash:lodash:4.17.21'
     implementation 'moment:moment:2.29.1'
     implementation 'uuid:uuid:8.3.2'
+    implementation 'io.projectreactor.netty:reactor-netty-core:1.2.11'
+    implementation 'io.projectreactor.netty:reactor-netty-http:1.2.11'
 }
 
 application {
     mainClass = 'index.js'
 }
+
