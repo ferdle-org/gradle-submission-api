@@ -9,31 +9,59 @@ permissions:
   attestations: write
   artifact-metadata: write
 
-jobs:
+jobs: 
   dependency-submission:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout sources
       uses: actions/checkout@v4
+      
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: 17
+        
+    # Build your actual application
+    - name: Build with Gradle
+      run: ./gradlew build
+      
+    # Submit dependencies to GitHub
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@v4
-    - name: Generate Generic Attestations
-      uses: actions/attest@v3.1.0
+      
+    # Create output directory and copy artifacts
+    - name:  Prepare artifacts for attestation
+      run: |
+        mkdir -p dist/my-app
+        # Copy your built JAR or binary to dist/my-app
+        # Adjust this path based on your actual Gradle build output
+        cp build/libs/*.jar dist/my-app/
+        
+    # Generate SBOM using a tool like anchore
+    - name: Generate SBOM
+      uses: anchore/sbom-action@v0
       with:
-        subject-path: 'dist/my-app'
-        predicate-type: 'https://example.com/predicate/v1'
-        predicate: '{}'
-    - name: Attest Build Provenance
+        path: dist/my-app
+        artifact-name: sbom. spdx. json
+        output-file: dist/my-app/sbom.spdx.json
+        
+    # Now attest the actual built artifacts
+    - name:  Attest Build Provenance
       uses: actions/attest-build-provenance@v3.1.0
       with:
-        subject-path: 'dist/my-app'
+        subject-path: 'dist/my-app/*. jar'
+        
     - name: Attest SBOM
       uses: actions/attest-sbom@v3.0.0
       with:
-        subject-path: 'dist/my-app'
-        sbom-path: 'dist/my-app/dependency_snapshot_36694604.txt'
+        subject-path: 'dist/my-app/*. jar'
+        sbom-path:  'dist/my-app/sbom.spdx.json'
+        
+    # Optional: Generic attestations (only if you need custom predicates)
+    - name: Generate Generic Attestations
+      uses: actions/attest@v3.1.0
+      with:
+        subject-path: 'dist/my-app/*.jar'
+        predicate-type: 'https://example.com/predicate/v1'
+        predicate:  '{}'
