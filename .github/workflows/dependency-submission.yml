@@ -29,10 +29,10 @@ jobs:
     # Create output directory and copy artifacts
     - name:  Prepare artifacts for attestation
       run: |
-        mkdir -p dist/my-app
+        sudo mkdir -p dist/my-app
         # Copy your built JAR or binary to dist/my-app
         # Adjust this path based on your actual Gradle build output
-        cp build/libs/*.jar dist/my-app/
+        sudo cp build/libs/*.jar dist/my-app/
         
     # Generate SBOM using a tool like anchore
     - name: Generate SBOM
