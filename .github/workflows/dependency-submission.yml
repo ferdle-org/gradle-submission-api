@@ -5,22 +5,17 @@ on:
 
 permissions:
   contents: write
-  id-token: write
-  attestations: write
-  artifact-metadata: write
 
-jobs: 
+jobs:
   dependency-submission:
-    runs-on:  ubuntu-latest
-    steps: 
+    runs-on: ubuntu-latest
+    steps:
     - name: Checkout sources
       uses: actions/checkout@v4
-      
-    - name:  Setup Java
+    - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: 17
-    # Submit dependencies to GitHub
-    - name:  Generate and submit dependency graph
+    - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@v4
