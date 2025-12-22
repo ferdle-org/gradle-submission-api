@@ -20,12 +20,8 @@ jobs:
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: 17
-        
-    # Build your actual application
-    - name: Build with Gradle
-      run: ./gradlew build
-      
+        java-version: 17        
+    
     # Submit dependencies to GitHub
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@v4
