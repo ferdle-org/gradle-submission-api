@@ -32,8 +32,6 @@ jobs:
       uses: actions/attest-build-provenance@v3.1.0
       with:
         subject-path: 'dist/my-app'
-        predicate-type: 'https://example.com/predicate/v1'
-        predicate: '{}'
     - name: Attest SBOM
       uses: actions/attest-sbom@v3.0.0
       with:
