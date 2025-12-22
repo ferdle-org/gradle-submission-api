@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     // Use the Micronaut Logging BOM
+    implementation platform('io.micronaut.logging:micronaut-logging-bom:1.7.0')
     implementation platform('io.micronaut.logging:micronaut-logging-bom:1.7.1')
 
     // Add the Micronaut Logging dependency
