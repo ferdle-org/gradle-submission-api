@@ -11,53 +11,71 @@ permissions:
 
 jobs: 
   dependency-submission:
-    runs-on: ubuntu-latest
-    steps:
+    runs-on:  ubuntu-latest
+    steps: 
     - name: Checkout sources
       uses: actions/checkout@v4
       
-    - name: Setup Java
+    - name:  Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: 17        
-    
+        java-version: 17
+        
+    # Make gradlew executable
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+        
+    # Build with assemble (creates JARs without running tests)
+    - name: Build with Gradle
+      run: ./gradlew assemble --stacktrace
+      
     # Submit dependencies to GitHub
-    - name: Generate and submit dependency graph
+    - name:  Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@v4
       
     # Create output directory and copy artifacts
     - name:  Prepare artifacts for attestation
       run: |
-        sudo mkdir -p dist/my-app
-        # Copy your built JAR or binary to dist/my-app
-        # Adjust this path based on your actual Gradle build output
-        sudo cp build/libs/*.jar dist/my-app/
+        mkdir -p dist/my-app
+        # Check if build directory exists
+        if [ -d "build/libs" ]; then
+          cp build/libs/*.jar dist/my-app/ 2>/dev/null || echo "No JARs in build/libs"
+        fi
+        # For multi-module projects
+        find . -path "*/build/libs/*. jar" !  -path "*/test/*" -exec cp {} dist/my-app/ \; 2>/dev/null || true
+        # Verify we have artifacts
+        if [ -z "$(ls -A dist/my-app/*. jar 2>/dev/null)" ]; then
+          echo "Error: No JAR files found to attest"
+          exit 1
+        fi
+        echo "Artifacts to attest:"
+        ls -la dist/my-app/
         
-    # Generate SBOM using a tool like anchore
+    # Generate SBOM
     - name: Generate SBOM
       uses: anchore/sbom-action@v0
       with:
         path: dist/my-app
-        artifact-name: sbom. spdx. json
-        output-file: dist/my-app/sbom.spdx.json
+        artifact-name: sbom.spdx. json
+        output-file: dist/my-app/sbom. spdx.json
         
     # Now attest the actual built artifacts
-    - name:  Attest Build Provenance
+    - name: Attest Build Provenance
       uses: actions/attest-build-provenance@v3.1.0
       with:
-        subject-path: 'dist/my-app/*. jar'
+        subject-path:  'dist/my-app/*. jar'
         
     - name: Attest SBOM
       uses: actions/attest-sbom@v3.0.0
       with:
-        subject-path: 'dist/my-app/*. jar'
-        sbom-path:  'dist/my-app/sbom.spdx.json'
+        subject-path: 'dist/my-app/*.jar'
+        sbom-path: 'dist/my-app/sbom.spdx.json'
         
-    # Optional: Generic attestations (only if you need custom predicates)
+    # Optional: Generic attestations
     - name: Generate Generic Attestations
       uses: actions/attest@v3.1.0
       with:
         subject-path: 'dist/my-app/*.jar'
         predicate-type: 'https://example.com/predicate/v1'
-        predicate:  '{}'
+        predicate: '{}'
