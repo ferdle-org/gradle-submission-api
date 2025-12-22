@@ -19,3 +19,9 @@ jobs:
         java-version: 17
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@v4
+    - name: Generate Generic Attestations
+      uses: actions/attest@v3.1.0
+    - name: Attest Build Provenance
+      uses: actions/attest-build-provenance@v3.1.0
+    - name: Attest SBOM
+      uses: actions/attest-sbom@v3.0.0
