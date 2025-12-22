@@ -21,15 +21,6 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: 17
-        
-    # Make gradlew executable
-    - name: Make gradlew executable
-      run: chmod +x ./gradlew
-        
-    # Build with assemble (creates JARs without running tests)
-    - name: Build with Gradle
-      run: ./gradlew assemble --stacktrace
-      
     # Submit dependencies to GitHub
     - name:  Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@v4
