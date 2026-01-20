@@ -22,8 +22,8 @@ dependencies {
     implementation 'io.micronaut.logging:micronaut-logging'
 
     // Add logback-classic, which will pull in logback-core transitively
-    implementation 'ch.qos.logback:logback-classic:1.5.18'
-    implementation 'ch.qos.logback:logback-classic:1.5.20'
+    implementation 'ch.qos.logback:logback-classic:1.5.23'
+    implementation 'ch.qos.logback:logback-classic:1.5.23'
 
     // Other dependencies (if any)
     implementation 'axios:axios:0.21.1'
