@@ -11,11 +11,9 @@ updates:
       interval: weekly
     groups:
       all-security-updates:
-        IDENTIFIER: "test1security-"
         applies-to: security-updates
         patterns:
-          - "*"
+          - "security1-*"
       all-dependencies:
-        IDENTIFIER: "testversion1-"
         patterns:
-          - "*"
+          - "version1-*"
